@@ -3,7 +3,7 @@ const app = express()
 
 // route handler
 app.get("/", (req, res) => {
-  res.send({ hey: "cool" })
+  res.send({ hey: "yolo" })
 })
 // instruct express to tell node that it wants to listen to incoming traffic n port 5000
 // heroku environment variable
