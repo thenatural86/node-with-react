@@ -1,14 +1,36 @@
+// imports
 const express = require("express")
+const passport = require("passport")
+// import the strategy property
+const GoogleStrategy = require("passport-google-oauth20").Strategy
+const keys = require("./config/keys")
 const app = express()
 
-// route handler
-app.get("/", (req, res) => {
-  res.send({ hey: "girl" })
-})
+// passport.use(), tells passport to use the strategy we pass in
+// creates a new instance of the google passport strategy
+// clientId and clientSecret provided by google
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: keys.googleClientID,
+      clientSecret: keys.googleClientSecret,
+      callbackURL: "/auth/google/callback",
+    },
+    (accessToken) => {
+      console.log(accessToken)
+    }
+  )
+)
+
 // instruct express to tell node that it wants to listen to incoming traffic n port 5000
 // heroku environment variable
 const PORT = process.env.PORT || 5000
 app.listen(PORT)
+// test route handler
+// app.get("/", (req, res) => {
+//   res.send({ hey: "girl" })
+// })
+
 // app object - represents the underlying express server
 // get - function that tells express that we want to create a route handler that is watching for incoming http request with a .get() method
 // '/' - watch for incoming req that are trying to access this particular route
