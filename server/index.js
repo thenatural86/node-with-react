@@ -22,6 +22,16 @@ passport.use(
   )
 )
 
+app.get(
+  // when user visits this route they get navigated to oauth flow, managed by passport using google strategy
+  "/auth/google",
+  // string refers to GoogleStrategy
+  passport.authenticate("google", {
+    // scope (permissions) specifies what access we get from google servers: profile info and email info
+    scope: ["profile", "email"],
+  })
+)
+
 // instruct express to tell node that it wants to listen to incoming traffic n port 5000
 // heroku environment variable
 const PORT = process.env.PORT || 5000
